@@ -53,20 +53,20 @@ class Task {
 
 class ListItem {
   ListItem({
-    required this.id,
+    this.id,
     required this.titleItem,
     required this.doneItem,
     required this.listTaskId,
-    required this.createdAt,
-    required this.updatedAt,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  int id;
+  int? id;
   String titleItem;
   int doneItem;
   int listTaskId;
-  DateTime createdAt;
-  DateTime updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   factory ListItem.fromJson(Map<String, dynamic> json) => ListItem(
         id: json["id"],
@@ -82,7 +82,7 @@ class ListItem {
         "title_item": titleItem,
         "done_item": doneItem,
         "list_task_id": listTaskId,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }

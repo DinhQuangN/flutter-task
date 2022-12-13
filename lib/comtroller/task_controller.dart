@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_app/model/task_model.dart';
@@ -15,7 +14,7 @@ class TaskController extends GetxController {
   final isLoading = false.obs;
   final deleting = false.obs;
   final task = Rx<Task?>(null);
-  final doingTodos = <dynamic>[].obs;
+  final doingTodos = <ListItem>[].obs;
   final doneTodos = <ListItem>[].obs;
   late TextEditingController editingController;
 
@@ -44,10 +43,8 @@ class TaskController extends GetxController {
     for (int i = 0; i < select.length; i++) {
       var todo = select[i];
       var status = todo.doneItem;
-      print('status ${status}');
-      if (status == 0) {
+      if (status != 0) {
         doneTodos.add(todo);
-        print(doneTodos);
       } else {
         doingTodos.add(todo);
       }
@@ -91,7 +88,7 @@ class TaskController extends GetxController {
     }
   }
 
-  Future<void> createItemTask(Map data) async {
+  Future<void> createItemTask(Map<String, dynamic> data) async {
     try {
       var response = await TaskProvider().postTask('createItem', data);
       var res = jsonDecode(response);
@@ -121,24 +118,27 @@ class TaskController extends GetxController {
     }
   }
 
-  bool addItemTodo(String title, int id) {
-    var todo = {'titleItem': title, 'listTaskId': id, 'doneItem': false};
-    if (doingTodos
-        .any((element) => mapEquals<String, dynamic>(todo, element))) {
-      return false;
-    }
-    var doneTodo = {'titleItem': title, 'listTaskId': id, 'doneItem': true};
-    if (doneTodos
-        .any((element) => mapEquals<String, dynamic>(doneTodo, element))) {
-      return false;
-    }
-    doingTodos.add(todo);
-    print(doingTodos);
-    editingController.clear();
+  Future<void> addItemTodo(String title, int id) async {
+    Map<String, dynamic> data = {
+      'title_item': title,
+      'list_task_id': id,
+      'done_item': 0
+    };
+    print(ListItem.fromJson(data));
+    // var response = await TaskProvider().postTask('createItem', data);
+    // var res = jsonDecode(response);
+    // changeTask(res['data']['list_item']);
+    // if (res['message'] != 'success') {
+    //   clearTextEditingController();
+    //   showSnackBar('Error ', 'Todo item already exist ', Colors.red);
+    // } else {
+    //   showSnackBar('Success', 'Todo item add success', Colors.green);
+    // }
 
-    return true;
+    // editingController.clear();
   }
 
+  Future<void> doneTodo() async {}
   void clearTextEditingController() {
     editingController.clear();
   }

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:task_app/comtroller/task_controller.dart';
 import 'package:task_app/utils/extension.dart';
+import 'package:task_app/widgets/doing_list.dart';
 
 class DetailPage extends StatelessWidget {
   TaskController controller = Get.put(TaskController());
@@ -117,16 +118,8 @@ class DetailPage extends StatelessWidget {
                   suffixIcon: IconButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        var success = controller.addItemTodo(
+                        controller.addItemTodo(
                             controller.editingController.text, task.id);
-                        print(success);
-                        // if (success == true) {
-                        //   controller.showSnackBar(
-                        //       'Success', 'Todo item add success', Colors.green);
-                        // } else {
-                        //   controller.showSnackBar(
-                        //       'Error ', 'Todo item already exist ', Colors.red);
-                        // }
                       }
                     },
                     icon: Icon(Icons.done),
@@ -139,7 +132,8 @@ class DetailPage extends StatelessWidget {
                   return null;
                 },
               ),
-            )
+            ),
+            DoingList(),
           ],
         ),
       ),
