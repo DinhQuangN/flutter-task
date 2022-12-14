@@ -51,22 +51,25 @@ class Task {
       };
 }
 
+List<ListItem> taskItemFromJson(String str) =>
+    List<ListItem>.from(json.decode(str).map((x) => ListItem.fromJson(x)));
+
 class ListItem {
   ListItem({
-    this.id,
+    required this.id,
     required this.titleItem,
     required this.doneItem,
     required this.listTaskId,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
-  int? id;
+  int id;
   String titleItem;
   int doneItem;
   int listTaskId;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  DateTime createdAt;
+  DateTime updatedAt;
 
   factory ListItem.fromJson(Map<String, dynamic> json) => ListItem(
         id: json["id"],
@@ -82,7 +85,7 @@ class ListItem {
         "title_item": titleItem,
         "done_item": doneItem,
         "list_task_id": listTaskId,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
       };
 }

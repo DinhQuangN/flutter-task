@@ -57,7 +57,7 @@ class DoingList extends StatelessWidget {
                                     (states) => Colors.grey),
                                 value: element.doneItem != 0 ? true : false,
                                 onChanged: (val) {
-                                  controller.doneTodo();
+                                  controller.doneTodo(element);
                                 },
                               ),
                             ),
@@ -73,6 +73,13 @@ class DoingList extends StatelessWidget {
                       ),
                     )
                     .toList(),
+                if (controller.doingTodos.isNotEmpty)
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5.0.wp),
+                    child: Divider(
+                      thickness: 2,
+                    ),
+                  ),
               ],
             ),
     );

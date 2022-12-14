@@ -21,4 +21,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/getList', [ListTaskController::class, 'index']);
 Route::post('/createList', [ListTaskController::class, 'store']);
 Route::post('/createItem', [ItemTaskController::class, 'store']);
+Route::post('updateItem/{id}', [ItemTaskController::class, 'updateItem']);
 Route::get('deleteList/{id}', [ListTaskController::class, 'delete']);
+Route::get('deleteItem/{id}', [ItemTaskController::class, 'delete']);
